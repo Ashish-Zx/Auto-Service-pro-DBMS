@@ -3,7 +3,7 @@ const cors = require('cors');
 require('dotenv').config();
 const { authenticate } = require('./middleware/auth');
 const { attachTenantFromToken } = require('./middleware/tenant');
-const { initControlPlane, testPool, controlDb } = require('./config/db');
+const { initControlPlane, testPool, getControlDb } = require('./config/db');
 const { errorHandler, notFound, sendSuccess } = require('./utils/http');
 
 const app = express();
@@ -55,7 +55,7 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 5000;
 initControlPlane()
     .then(async () => {
-        await testPool(controlDb, 'Control database');
+        await testPool(getControlDb(), 'Control database');
         app.listen(PORT, () => {
             console.log(`🚀 Server running on port ${PORT}`);
         });

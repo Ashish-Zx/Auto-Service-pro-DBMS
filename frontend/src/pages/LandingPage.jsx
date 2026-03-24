@@ -198,7 +198,7 @@ function DashboardMock() {
       {/* Floating notification cards */}
       <div className={styles.mockFloatCard} style={{ top: '-16px', right: '-12px' }}>
         <RiCarLine size={16} style={{ color: '#4E7ED7' }} />
-        <span>+3 vehicles today</span>
+        <span>+45 vehicles today</span>
       </div>
       <div className={styles.mockFloatCard} style={{ bottom: '12px', left: '12px' }}>
         <RiShieldCheckLine size={16} style={{ color: '#10B981' }} />

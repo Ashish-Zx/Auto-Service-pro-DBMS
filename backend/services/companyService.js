@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const { controlDb, getTenantDb } = require('../config/db');
+const { getControlDb, getTenantDb } = require('../config/db');
 const { bootstrapTenantDatabase } = require('./tenantBootstrap');
 
 function slugifyDatabaseName(name) {
@@ -13,7 +13,7 @@ function generateCompanyCode() {
 async function ensureUniqueCompanyCode() {
     while (true) {
         const companyCode = generateCompanyCode();
-        const [rows] = await controlDb.query('SELECT company_id FROM companies WHERE company_code = ?', [companyCode]);
+        const [rows] = await getControlDb().query('SELECT company_id FROM companies WHERE company_code = ?', [companyCode]);
         if (rows.length === 0) return companyCode;
     }
 }
@@ -30,7 +30,7 @@ async function provisionCompany({ companyName, ownerName, username, passwordHash
         [username, passwordHash, 'owner']
     );
 
-    const connection = await controlDb.getConnection();
+    const connection = await getControlDb().getConnection();
     try {
         await connection.beginTransaction();
         const [companyResult] = await connection.execute(

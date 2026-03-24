@@ -22,8 +22,19 @@ const baseConfig = {
 };
 
 const adminPool = mysql.createPool(baseConfig);
-const controlPool = mysql.createPool({ ...baseConfig, database: CONTROL_DB_NAME });
+let controlPool = null;
 const tenantPools = new Map();
+
+function createControlPool() {
+    return mysql.createPool({ ...baseConfig, database: CONTROL_DB_NAME });
+}
+
+function getControlDb() {
+    if (!controlPool) {
+        controlPool = createControlPool();
+    }
+    return controlPool;
+}
 
 function createTenantPool(database) {
     return mysql.createPool({ ...baseConfig, database });
@@ -48,6 +59,11 @@ async function testPool(pool, label) {
 
 async function initControlPlane() {
     await adminPool.query(`CREATE DATABASE IF NOT EXISTS \`${CONTROL_DB_NAME}\` CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci`);
+
+    if (controlPool) {
+        await controlPool.end();
+    }
+    controlPool = createControlPool();
 
     await controlPool.query(`
         CREATE TABLE IF NOT EXISTS companies (
@@ -78,7 +94,7 @@ async function initControlPlane() {
 
 module.exports = {
     adminDb: adminPool,
-    controlDb: controlPool,
+    getControlDb,
     defaultTenantDbName: DB_NAME,
     getTenantDb,
     initControlPlane,

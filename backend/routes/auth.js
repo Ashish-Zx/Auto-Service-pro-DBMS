@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { authenticate, authorize } = require('../middleware/auth');
 const { attachTenantFromToken, resolveCompanyByCode } = require('../middleware/tenant');
-const { controlDb, getTenantDb } = require('../config/db');
+const { getControlDb, getTenantDb } = require('../config/db');
 const { createReceptionist, provisionCompany } = require('../services/companyService');
 const { AppError, asyncHandler, sendSuccess } = require('../utils/http');
 const { optionalString, requiredString, validate } = require('../utils/validation');
@@ -75,6 +75,7 @@ const validateReceptionistCreate = validate((req) => {
 
 router.post('/owner/signup', validateOwnerSignup, asyncHandler(async (req, res) => {
     const { company_name, owner_name, username, password } = req.validated;
+    const controlDb = getControlDb();
 
     const [existingOwners] = await controlDb.execute(
         'SELECT owner_id FROM owners WHERE username = ?',
@@ -123,6 +124,7 @@ router.post('/owner/signup', validateOwnerSignup, asyncHandler(async (req, res) 
 
 router.post('/owner/login', validateOwnerLogin, asyncHandler(async (req, res) => {
     const { username, password } = req.validated;
+    const controlDb = getControlDb();
 
     const [owners] = await controlDb.execute(
         `SELECT o.*, c.company_name, c.company_code, c.tenant_db_name
@@ -213,6 +215,7 @@ router.post('/receptionist/login', validateReceptionistLogin, asyncHandler(async
 
 router.get('/me', authenticate, attachTenantFromToken, asyncHandler(async (req, res) => {
     if (req.user.role === 'owner') {
+        const controlDb = getControlDb();
         const [owners] = await controlDb.execute(
             `SELECT o.owner_id, o.username, c.company_id, c.company_name, c.company_code
              FROM owners o
@@ -260,6 +263,7 @@ router.get('/me', authenticate, attachTenantFromToken, asyncHandler(async (req, 
 }));
 
 router.get('/company', authenticate, authorize('owner'), asyncHandler(async (req, res) => {
+    const controlDb = getControlDb();
     const [companies] = await controlDb.execute(
         'SELECT company_id, company_name, owner_name, company_code, status, created_at FROM companies WHERE company_id = ?',
         [req.user.companyId]

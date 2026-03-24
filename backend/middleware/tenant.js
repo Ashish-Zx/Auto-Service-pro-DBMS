@@ -1,4 +1,4 @@
-const { controlDb, getTenantDb } = require('../config/db');
+const { getControlDb, getTenantDb } = require('../config/db');
 const { AppError } = require('../utils/http');
 
 async function attachTenantFromToken(req, res, next) {
@@ -22,7 +22,7 @@ async function attachTenantFromToken(req, res, next) {
 }
 
 async function resolveCompanyByCode(companyCode) {
-    const [rows] = await controlDb.execute(
+    const [rows] = await getControlDb().execute(
         'SELECT * FROM companies WHERE company_code = ? AND status = ?',
         [companyCode, 'active']
     );
