@@ -1,0 +1,323 @@
+/* ── Login Page ── */
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-dark);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.032) 1px, transparent 1px);
+  background-size: 26px 26px;
+  padding: 80px 16px 32px;
+  position: relative;
+}
+
+/* glow */
+.page::before {
+  content: '';
+  position: fixed;
+  width: 600px;
+  height: 500px;
+  background: radial-gradient(ellipse, rgba(34, 76, 152, 0.22) 0%, transparent 65%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* ── Back link ── */
+.backLink {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(255, 255, 255, 0.45);
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  z-index: 10;
+  transition: background 0.2s, color 0.2s;
+}
+.backLink:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* ── Card ── */
+.card {
+  width: 100%;
+  max-width: 480px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 28px;
+  padding: 36px 32px 32px;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5);
+}
+
+/* ── Brand ── */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+.brandIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 24px rgba(34, 76, 152, 0.35);
+  flex-shrink: 0;
+}
+.brandText {
+  display: flex;
+  flex-direction: column;
+}
+.brandTitle {
+  font-family: 'Manrope', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: white;
+  line-height: 1.2;
+}
+.brandSub {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+/* ── Role Tabs ── */
+.roleTabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 14px;
+  padding: 5px;
+  margin-bottom: 16px;
+}
+.roleTab {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  font-size: 0.875rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  transition: background 0.18s, color 0.18s;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.5);
+}
+.roleTabActive {
+  background: rgba(34, 76, 152, 0.55);
+  color: white;
+  box-shadow: 0 4px 14px rgba(34, 76, 152, 0.3);
+}
+
+/* ── Owner Sub-tabs ── */
+.ownerSubtabs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 999px;
+  padding: 4px;
+  margin-bottom: 20px;
+  width: fit-content;
+}
+.ownerSubtab {
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.48);
+  border-radius: 999px;
+  padding: 7px 18px;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+}
+.ownerSubtabActive {
+  background: rgba(78, 126, 215, 0.28);
+  color: white;
+}
+
+/* ── Eyebrow + Heading ── */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(78, 126, 215, 0.14);
+  color: #BFD4FF;
+  font-family: 'Manrope', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.heading {
+  font-family: 'Manrope', sans-serif;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: white;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.subText {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.88rem;
+  line-height: 1.65;
+  margin-bottom: 22px;
+}
+
+/* ── Error / Info banners ── */
+.errorBanner {
+  background: rgba(254, 242, 242, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  color: #FCA5A5;
+  border-radius: 12px;
+  padding: 11px 14px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.infoBanner {
+  background: rgba(219, 234, 254, 0.1);
+  border: 1px solid rgba(147, 197, 253, 0.2);
+  color: #93C5FD;
+  border-radius: 12px;
+  padding: 11px 14px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+/* ── Form ── */
+.formGroup {
+  margin-bottom: 14px;
+}
+.label {
+  display: block;
+  margin-bottom: 6px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: 'Manrope', sans-serif;
+}
+.fieldWrap {
+  position: relative;
+}
+.fieldIcon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  pointer-events: none;
+}
+.field {
+  width: 100%;
+  padding: 12px 14px 12px 42px;
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  font-size: 0.925rem;
+  font-family: 'Source Sans 3', sans-serif;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.field:focus {
+  border-color: rgba(78, 126, 215, 0.6);
+  box-shadow: 0 0 0 3px rgba(34, 76, 152, 0.18);
+}
+.field::placeholder {
+  color: rgba(255, 255, 255, 0.22);
+}
+.fieldToggle {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.35);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  transition: color 0.18s;
+}
+.fieldToggle:hover {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* ── Submit Button ── */
+.submit {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 800;
+  font-size: 0.95rem;
+  cursor: pointer;
+  margin-top: 8px;
+  box-shadow: 0 12px 28px rgba(34, 76, 152, 0.3);
+  transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+  letter-spacing: 0.01em;
+}
+.submit:hover:not(:disabled) {
+  opacity: 0.92;
+  transform: translateY(-1px);
+  box-shadow: 0 16px 36px rgba(34, 76, 152, 0.4);
+}
+.submit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ── Responsive ── */
+@media (max-width: 540px) {
+  .card {
+    border-radius: 22px;
+    padding: 28px 20px 24px;
+  }
+  .heading {
+    font-size: 1.25rem;
+  }
+  .brand {
+    margin-bottom: 22px;
+  }
+  .backLink {
+    top: 14px;
+    left: 14px;
+    font-size: 0.78rem;
+    padding: 7px 11px;
+  }
+}
